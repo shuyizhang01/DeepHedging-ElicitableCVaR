@@ -77,7 +77,7 @@ def _load(data_dir, alpha_label, key, filename):
 def _style_ax(ax):
     ax.spines[["top", "right"]].set_visible(False)
     ax.spines[["left", "bottom"]].set_color("#cccccc")
-    ax.set_facecolor("#f7f7f7")
+    ax.set_facecolor("white")
     ax.grid(False)
     ax.set_axisbelow(False)
     ax.tick_params(colors="#444444")
