@@ -1,0 +1,141 @@
+# =============================================================================
+# configDynamicRisk.yaml
+# All hyperparameters for the DCC-GARCH deep hedging experiment.
+# =============================================================================
+
+# ---------------------------------------------------------------------------
+# Market / data
+# ---------------------------------------------------------------------------
+market:
+  tickers:
+    JPM: JPM
+    BAC: BAC
+    WFC: WFC
+    C:   C
+  years_back: 2
+  end_date: "2025-12-20"   # ISO format; set to null to use today
+  r_daily: 0.000158730     # 0.04 / 252
+
+# ---------------------------------------------------------------------------
+# GARCH parameters (Heston-Nandi, one entry per asset)
+# ---------------------------------------------------------------------------
+garch_params:
+  0:  # JPM
+    omega:           8.59e-06
+    alpha:           7.04e-07
+    beta:            0.8827
+    gamma:           251.15
+    lambda:          0.5776
+    h_unconditional: 0.000118
+  1:  # BAC
+    omega:           5.31e-07
+    alpha:           5.82e-07
+    beta:            0.7465
+    gamma:           650.25
+    lambda:          0.1809
+    h_unconditional: 0.000072
+  2:  # WFC
+    omega:           1.44e-06
+    alpha:           1.09e-07
+    beta:            0.9433
+    gamma:           664.44
+    lambda:          -0.1208
+    h_unconditional: 0.000168
+  3:  # C
+    omega:           5.25e-06
+    alpha:           1.11e-07
+    beta:            0.9396
+    gamma:           534.63
+    lambda:          0.7262
+    h_unconditional: 0.000184
+
+# ---------------------------------------------------------------------------
+# DCC-GARCH + copula  (pre-fitted; skip calibration if provided)
+# ---------------------------------------------------------------------------
+dcc:
+  nu_Q:      4.9204
+  dcc_alpha: null   # set to null to re-fit from data
+  dcc_beta:  null
+
+# ---------------------------------------------------------------------------
+# Environment
+# ---------------------------------------------------------------------------
+env:
+  K:                100.0
+  T_days:           252
+  S0:               [100.0, 100.0, 100.0, 100.0]
+  r:                0.04
+  transaction_cost: 0.0001
+  basket_weights:   [0.07690456, 0.44895452, 0.26472574, 0.20941517]
+
+# ---------------------------------------------------------------------------
+# Basket option pricing model
+# ---------------------------------------------------------------------------
+pricing:
+  system_path: "basket_system_dcc_trained (2).pkl"
+
+# ---------------------------------------------------------------------------
+# Actor network
+# ---------------------------------------------------------------------------
+actor:
+  hidden_dim:      256
+  action_high:     2.0
+  action_low:      -2.0
+  init_action_mean: 0.0
+  fixed_std:       1.0e-3
+
+# ---------------------------------------------------------------------------
+# Critic network
+# ---------------------------------------------------------------------------
+critic:
+  head_dim_var:    128
+  head_dim_excess: 128
+
+# ---------------------------------------------------------------------------
+# Training loop
+# ---------------------------------------------------------------------------
+training:
+  # Outer iterations (number of actor–critic alternations)
+  K:           400
+
+  # Critic inner iterations
+  K_initial:   2000    # iterations for the first (earliest) group
+  K_star:      2000    # base iterations per group
+  K_target:    300     # target-network update period
+  n_increment: 0       # extra iterations added per group (0 = uniform)
+
+  # Actor inner iterations per outer loop
+  K_2:         3
+
+  # Batch sizes
+  B0:          16384   # critic trajectory buffer
+  B1:          2048    # diagnostic evaluation
+  B2:          2048    # actor update buffer
+
+  # Risk measure
+  alpha:       0.95
+  scoring_fn:  "power03"   # log | power03 | power05 | power07 | exponential | rational
+  C_shift:     40.0        # constant C in scoring functions
+
+  # Critic groups (backwards induction)
+  n_groups:    18
+
+  # Optimiser
+  eta_theta:        2.5e-3   # actor Adam lr
+  min_lr_actor:     1.0e-4
+  critic_reset_lr:  2.5e-3   # critic SGD lr
+  actor_lr_decay:   0.997
+  critic_lr_decay:  0.99999
+
+  # Logging / checkpointing
+  log_interval: 10
+  log_dir:      "logs"
+
+  # Checkpoint to resume from (null = train from scratch)
+  resume_checkpoint: null
+
+# ---------------------------------------------------------------------------
+# Misc
+# ---------------------------------------------------------------------------
+seed: 42
+device: "cuda"   # "cuda" or "cpu"

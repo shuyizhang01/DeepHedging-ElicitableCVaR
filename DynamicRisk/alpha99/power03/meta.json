@@ -1,0 +1,8 @@
+{
+  "alpha": 0.99,
+  "scoring_fn": "power03",
+  "K": 100.0,
+  "T_days": 252,
+  "n_assets": 4,
+  "transaction_cost": 0.0001
+}
