@@ -173,7 +173,6 @@ def plot_portfolio_delta(
         ax.set_title(SCORING_DISPLAY[sk], fontsize=12, color="#444444")
         _style_ax(ax)
         ax.set_axisbelow(True)
-        ax.grid(True, alpha=0.3)
         if idx in [0, 3]:
             ax.set_ylabel("Weighted Aggregate Position", fontsize=12, color="#444444")
         if idx in [3, 4, 5]:
