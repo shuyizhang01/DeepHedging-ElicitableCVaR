@@ -204,6 +204,7 @@ def plot_pnl_distributions(
         "xtick.labelsize":  10,
         "ytick.labelsize":  10,
         "legend.fontsize":  9,
+        "axes.facecolor":   "#f7f7f7",   # <-- add this
     })
 
     if scoring_labels is None:
