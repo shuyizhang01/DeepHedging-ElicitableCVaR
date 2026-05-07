@@ -78,8 +78,8 @@ def _style_ax(ax):
     ax.spines[["top", "right"]].set_visible(False)
     ax.spines[["left", "bottom"]].set_color("#cccccc")
     ax.set_facecolor("#f7f7f7")
-    ax.grid(True, linestyle="--", linewidth=0.4, color="white", alpha=1.0)
-    ax.set_axisbelow(False)  # <-- add this
+    ax.grid(False)
+    ax.set_axisbelow(False)
     ax.tick_params(colors="#444444")
 
 
