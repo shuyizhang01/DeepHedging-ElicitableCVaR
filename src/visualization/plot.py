@@ -256,7 +256,7 @@ def plot_pnl_distributions(
             color=STATIC_COLOR, linewidth=2.2, label="static")
     ax.axvline(cvar_val, color=STATIC_COLOR, linestyle="--", linewidth=1.2)
     ax.axvline(mean_val, color=STATIC_COLOR, linestyle=":",  linewidth=1.2)
-
+    _style_ax(ax)
     ax.set_xlabel(r"Normalized Terminal Hedging Error")
     ax.set_ylabel("Density")
     ax.legend(loc="upper right", frameon=False)
