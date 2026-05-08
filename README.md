@@ -1,6 +1,4 @@
-This repository contains the Python code to replicate the experiments in the paper **Actor-Critic Deep Hedging under Time-Consistent Dynamic Risk** by Shuyi Zhang and Frederic Godin.
-
-Paper coming soon. For enquiries, contact Shuyi Zhang at `Szhang3314@inst.hcpss.org` or Frederic Godin at `frederic.godin@concordia.ca`.
+This repository contains the Python code to replicate the experiments in the upcoming paper **Actor-Critic Deep Hedging under Time-Consistent Dynamic Risk** by Shuyi Zhang  `Szhang3314@inst.hcpss.org` and Frederic Godin `frederic.godin@concordia.ca`.
 
 ---
 
