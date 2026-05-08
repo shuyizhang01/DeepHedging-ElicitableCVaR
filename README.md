@@ -7,7 +7,7 @@ This repository contains the Python code to replicate the experiments in the upc
 We study a deep hedging framework in which the agent minimizes risk through a time-consistent dynamic CVaR objective rather than a static one. The critic estimates dynamic risk using the conditional elicitability of CVaR jointly with VaR, which avoids nested simulation and substantially improves training efficiency. The actor is updated via policy gradient against the risk estimated by the critic. We apply this framework to a basket option on 4 underlying assets evolving under a DCC-GARCH model across a daily, 1-year time grid, and compare the proposed dynamic risk approach against a static CVaR baseline and a nested critics heuristic across 4 risk thresholds (92.5%, 95%, 97.5%, 99%) and 6 scoring function choices.
 
 ![Portfolio Delta](port_delt.png)
-Portfolio delta of the hedging policy across basket values for varying scoring functions at the 95% dynamic CVaR
+Portfolio delta of the hedging policy for varying scoring functions at the 95% dynamic CVaR
 ---
 
 ## Repository Structure
